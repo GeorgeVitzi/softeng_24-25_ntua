@@ -1,0 +1,2 @@
+status,dbconnection,n_stations,n_tags,n_passes
+OK,mysql://root@localhost/easygo,253,50,2002

@@ -1,0 +1,82 @@
+{
+    "nPasses": 9,
+    "passList": [
+        {
+            "passCharge": 2.2,
+            "passID": "pass-1",
+            "passIndex": 1,
+            "stationID": "AM04",
+            "tagID": "NAOHL1N13J",
+            "timestamp": "2022-02-16 04:35"
+        },
+        {
+            "passCharge": 3.1,
+            "passID": "pass-2",
+            "passIndex": 2,
+            "stationID": "AM10",
+            "tagID": "NAO5ZJA8DZ",
+            "timestamp": "2022-02-18 00:30"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "pass-3",
+            "passIndex": 3,
+            "stationID": "AM07",
+            "tagID": "NAO5UQPGB7",
+            "timestamp": "2022-02-18 23:58"
+        },
+        {
+            "passCharge": 3.6,
+            "passID": "pass-4",
+            "passIndex": 4,
+            "stationID": "AM05",
+            "tagID": "NAOHAFEYUH",
+            "timestamp": "2022-02-19 04:07"
+        },
+        {
+            "passCharge": 2.0,
+            "passID": "pass-5",
+            "passIndex": 5,
+            "stationID": "AM01",
+            "tagID": "NAOP0J43D5",
+            "timestamp": "2022-02-19 23:05"
+        },
+        {
+            "passCharge": 2.0,
+            "passID": "pass-6",
+            "passIndex": 6,
+            "stationID": "AM01",
+            "tagID": "NAO5UQPGB7",
+            "timestamp": "2022-02-20 21:14"
+        },
+        {
+            "passCharge": 3.6,
+            "passID": "pass-7",
+            "passIndex": 7,
+            "stationID": "AM06",
+            "tagID": "NAOBMYOFQE",
+            "timestamp": "2022-02-21 01:42"
+        },
+        {
+            "passCharge": 2.0,
+            "passID": "pass-8",
+            "passIndex": 8,
+            "stationID": "AM02",
+            "tagID": "NAOBMYOFQE",
+            "timestamp": "2022-02-21 02:40"
+        },
+        {
+            "passCharge": 3.1,
+            "passID": "pass-9",
+            "passIndex": 9,
+            "stationID": "AM09",
+            "tagID": "NAOVZ41NAM",
+            "timestamp": "2022-02-24 03:30"
+        }
+    ],
+    "periodFrom": "2022-02-14",
+    "periodTo": "2022-02-25",
+    "requestTimestamp": "2025-02-15 10:09",
+    "stationOpID": "AM",
+    "tagOpID": "NAO"
+}

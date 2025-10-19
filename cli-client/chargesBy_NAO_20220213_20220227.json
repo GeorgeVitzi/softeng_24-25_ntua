@@ -1,0 +1,43 @@
+{
+    "periodFrom": "2022-02-13",
+    "periodTo": "2022-02-27",
+    "requesTimestamp": "2025-02-15 10:09",
+    "tollOpID": "NAO",
+    "vOpList": [
+        {
+            "nPasses": 6,
+            "passesCost": 15.0,
+            "visitingOpID": "MO"
+        },
+        {
+            "nPasses": 48,
+            "passesCost": 120.0,
+            "visitingOpID": "EG"
+        },
+        {
+            "nPasses": 22,
+            "passesCost": 55.0,
+            "visitingOpID": "OO"
+        },
+        {
+            "nPasses": 26,
+            "passesCost": 65.0,
+            "visitingOpID": "AM"
+        },
+        {
+            "nPasses": 34,
+            "passesCost": 85.0,
+            "visitingOpID": "NO"
+        },
+        {
+            "nPasses": 24,
+            "passesCost": 60.0,
+            "visitingOpID": "KO"
+        },
+        {
+            "nPasses": 2,
+            "passesCost": 5.0,
+            "visitingOpID": "GE"
+        }
+    ]
+}

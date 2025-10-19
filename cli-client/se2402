@@ -1,0 +1,313 @@
+#!/usr/bin/env python3
+
+import argparse
+import requests
+import os
+import csv
+import json
+
+# Base URL for REST API
+BASE_URL = "http://localhost:5000"
+
+def main():
+    parser = argparse.ArgumentParser(prog="se2402")
+
+    parser.add_argument('scope', choices=['healthcheck', 'resetpasses', 'resetstations', 
+                                          'tollstationpasses', 'passanalysis', 
+                                          'passescost', 'chargesby', 'admin'], 
+                        help="Ο τύπος της εντολής scope")
+    parser.add_argument('--station', type=str, help="Ο σταθμός (χρησιμοποιείται για tollstationpasses, passanalysis, passescost)")
+    parser.add_argument('--from', dest='from_', type=str, help="Η αρχική ημερομηνία (χρησιμοποιείται για tollstationpasses, passanalysis, passescost, chargesby)")
+    parser.add_argument('--to', type=str, help="Η τελική ημερομηνία (χρησιμοποιείται για tollstationpasses, passanalysis, passescost, chargesby)")
+    parser.add_argument('--stationop', type=str, help="Ο τύπος της σταθμικής λειτουργίας (χρησιμοποιείται για passanalysis, passescost)")
+    parser.add_argument('--tagop', type=str, help="Ο τύπος της ετικέτας (χρησιμοποιείται για passanalysis, passescost)")
+    parser.add_argument('--opid', type=str, help="Ο τύπος της ενέργειας (χρησιμοποιείται για chargesby)")
+    parser.add_argument('--addpasses', action='store_true', help="Ενεργοποίηση της λειτουργίας προσθήκης περασμάτων.")
+    parser.add_argument('--source', type=str, help="Η πηγή των περασμένων (χρησιμοποιείται για admin)")
+    parser.add_argument('--format', choices=['csv', 'json'], default='csv', help="Η μορφή εξόδου (default είναι csv)")
+
+    args = parser.parse_args()
+
+    # Healthcheck, resetpasses, resetstations
+    if args.scope == 'resetpasses':
+        # Κλήση στο REST API για να κάνουμε reset τις διελεύσεις
+        url = f"{BASE_URL}/admin/resetpasses"
+        response = requests.post(url)
+
+        if response.status_code == 200:
+            data = response.json()  # Ανάλυση της απάντησης JSON
+            filename = f"resetpasses.{args.format}"
+
+            if args.format == 'csv':
+                # Αποθήκευση σε αρχείο CSV
+                with open(filename, mode='w', newline='') as file:
+                    writer = csv.DictWriter(file, fieldnames=['status'])
+                    writer.writeheader()
+                    writer.writerow({'status': data['status']})
+                print(f"Data saved to {filename}")
+
+            elif args.format == 'json':
+                # Αποθήκευση σε αρχείο JSON
+                with open(filename, mode='w') as file:
+                    json.dump(data, file, indent=4)
+                print(f"Data saved to {filename}")
+        else:
+            print(f"Error: {response.status_code} - {response.text}")
+    # Resetstations scope
+    elif args.scope == 'resetstations':
+        # Κλήση στο REST API για να κάνουμε reset των σταθμών
+        url = f"{BASE_URL}/admin/resetstations"
+        response = requests.post(url)
+
+        if response.status_code == 200:
+            data = response.json()  # Ανάλυση της απάντησης JSON
+            filename = f"resetstations.{args.format}"
+
+            if args.format == 'csv':
+                # Αποθήκευση σε αρχείο CSV
+                with open(filename, mode='w', newline='') as file:
+                    writer = csv.DictWriter(file, fieldnames=['status'])
+                    writer.writeheader()
+                    writer.writerow({'status': data['status']})
+                print(f"Data saved to {filename}")
+
+            elif args.format == 'json':
+                # Αποθήκευση σε αρχείο JSON
+                with open(filename, mode='w') as file:
+                    json.dump(data, file, indent=4)
+                print(f"Data saved to {filename}")
+        else:
+            print(f"Error: {response.status_code} - {response.text}")
+    # Healthcheck scope
+    elif args.scope == 'healthcheck':
+        url = f"{BASE_URL}/admin/healthcheck"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            try:
+                data = response.json()  # Ανάλυση της απάντησης JSON
+                filename = f"healthcheck.{args.format}"
+
+                if args.format == 'csv':
+                    # Αποθήκευση σε αρχείο CSV
+                    with open(filename, mode='w', newline='') as file:
+                        writer = csv.DictWriter(file, fieldnames=['status', 'dbconnection', 'n_stations', 'n_tags', 'n_passes'])
+                        writer.writeheader()
+                        writer.writerow({
+                            'status': data['status'],
+                            'dbconnection': data['dbconnection'],
+                            'n_stations': data['n_stations'],
+                            'n_tags': data['n_tags'],
+                            'n_passes': data['n_passes']
+                        })
+                    print(f"Data saved to {filename}")
+
+                elif args.format == 'json':
+                    # Αποθήκευση σε αρχείο JSON
+                    with open(filename, mode='w') as file:
+                        json.dump(data, file, indent=4)
+                    print(f"Data saved to {filename}")
+            except ValueError as e:
+                print(f"Error parsing response JSON: {e}")
+                print("Response content:", response.text)
+        else:
+            print(f"Error: {response.status_code} - {response.text}")  # Εμφανίζουμε το σώμα της απάντησης σε περίπτωση σφάλματος
+
+   # Admin scope functionality
+    elif args.scope == 'admin':
+        if args.addpasses and args.source:
+            # Έλεγχος συμβατότητας format
+            file_extension = os.path.splitext(args.source)[1].lower()
+            if file_extension == '.csv' and args.format != 'csv':
+                print("Error: Source file is in CSV format, but output format is not 'csv'.")
+                return
+            elif file_extension == '.json' and args.format != 'json':
+                print("Error: Source file is in JSON format, but output format is not 'json'.")
+                return
+
+            if not os.path.exists(args.source):
+                print("Error: The specified file does not exist.")
+                return
+
+            try:
+                with open(args.source, 'rb') as file:
+                    files = {'file': (os.path.basename(args.source), file)}
+                    response = requests.post(f"{BASE_URL}/admin/addpasses", files=files)
+
+                if response.status_code == 200:
+                    print("Passes processed successfully.")
+                else:
+                    print(f"Error: {response.json().get('info', 'Unknown error')} (HTTP {response.status_code})")
+            except Exception as e:
+                print(f"An error occurred: {str(e)}")
+        else:
+            print("Error: --addpasses and --source must be provided.")
+
+    # Tollstationpasses
+    elif args.scope == 'tollstationpasses':
+        if args.station and args.from_ and args.to:
+            # Κλήση στο REST API για να πάρουμε τα δεδομένα
+            url = f"{BASE_URL}/tollStationPasses/{args.station}/{args.from_}/{args.to}"
+            response = requests.get(url)
+
+            if response.status_code == 200:
+                try:
+                    data = response.json()  # Προσπαθούμε να αναλύσουμε το JSON
+                    # Αποθήκευση σε αρχείο ανάλογα με την επιλογή του χρήστη
+                    filename = f"tollStationPasses_{args.station}_{args.from_}_{args.to}.{args.format}"
+
+                    if args.format == 'csv':
+                        with open(filename, mode='w', newline='') as file:
+                            writer = csv.DictWriter(file, fieldnames=['Index', 'Timestamp', 'Tag ID', 'Charge'])
+                            writer.writeheader()
+                            for pass_record in data.get("passList", []):
+                                writer.writerow({
+	            'Index': pass_record['passIndex'], 
+                                    'Timestamp': pass_record['timestamp'],
+                                    'Tag ID': pass_record['tagID'],
+                                    'Charge': pass_record['passCharge']
+                                })
+                        print(f"Data saved to {filename}")
+
+                    elif args.format == 'json':
+                        with open(filename, mode='w') as file:
+                            json.dump(data, file, indent=4)
+                        print(f"Data saved to {filename}")
+                except ValueError as e:
+                    print(f"Error parsing response JSON: {e}")
+                    print("Response content:", response.text)  # Εμφανίζουμε το σώμα της απάντησης για να το ελέγξουμε
+            else:
+                print(f"Error: {response.status_code} - {response.text}")  # Εμφανίζουμε το σώμα της απάντησης σε περίπτωση σφάλματος
+        else:
+            print("Incorrect parameters for tollstationpasses.")
+
+    elif args.scope == 'passanalysis':
+        if args.stationop and args.tagop and args.from_ and args.to:
+            # Κλήση στο REST API για να πάρουμε τα δεδομένα
+            url = f"{BASE_URL}/passAnalysis/{args.stationop}/{args.tagop}/{args.from_}/{args.to}"
+            response = requests.get(url)
+
+            if response.status_code == 200:
+                try:
+                    data = response.json()  # Προσπαθούμε να αναλύσουμε το JSON
+                    # Αποθήκευση σε αρχείο ανάλογα με την επιλογή του χρήστη
+                    filename = f"passAnalysis_{args.stationop}_{args.tagop}_{args.from_}_{args.to}.{args.format}"
+
+                    if args.format == 'csv':
+                        # Αποθήκευση σε αρχείο CSV
+                        with open(filename, mode='w', newline='') as file:
+                            writer = csv.DictWriter(file, fieldnames=['passIndex', 'passID', 'stationID', 'timestamp', 'tagID', 'passCharge'])
+                            writer.writeheader()
+                            for pass_record in data.get("passList", []):
+                                writer.writerow({
+                                    'passIndex': pass_record['passIndex'],
+                                    'passID': pass_record['passID'],
+                                    'stationID': pass_record['stationID'],
+                                    'timestamp': pass_record['timestamp'],
+                                    'tagID': pass_record['tagID'],
+                                    'passCharge': pass_record['passCharge']
+                                })
+                        print(f"Data saved to {filename}")
+
+                    elif args.format == 'json':
+                        # Αποθήκευση σε αρχείο JSON
+                        with open(filename, mode='w') as file:
+                            json.dump(data, file, indent=4)
+                        print(f"Data saved to {filename}")
+                except ValueError as e:
+                    print(f"Error parsing response JSON: {e}")
+                    print("Response content:", response.text)  # Εμφανίζουμε το σώμα της απάντησης για να το ελέγξουμε
+            else:
+                print(f"Error: {response.status_code} - {response.text}")  # Εμφανίζουμε το σώμα της απάντησης σε περίπτωση σφάλματος
+        else:
+            print("Incorrect parameters for passanalysis.")
+
+      # passesCost
+    elif args.scope == 'passescost':
+        if args.stationop and args.tagop and args.from_ and args.to:
+            # Κλήση στο REST API για να πάρουμε τα δεδομένα
+            url = f"{BASE_URL}/passesCost/{args.stationop}/{args.tagop}/{args.from_}/{args.to}"
+            response = requests.get(url)
+
+            if response.status_code == 200:
+                try:
+                    data = response.json()  # Ανάλυση της απάντησης JSON
+                    # Αποθήκευση σε αρχείο ανάλογα με την επιλογή του χρήστη
+                    filename = f"passesCost_{args.stationop}_{args.tagop}_{args.from_}_{args.to}.{args.format}"
+
+                    if args.format == 'csv':
+                        # Αποθήκευση σε αρχείο CSV
+                        with open(filename, mode='w', newline='') as file:
+                            writer = csv.DictWriter(file, fieldnames=[
+                                'tollOpID', 'tagOpID', 'requestTimestamp', 'periodFrom', 'periodTo', 'nPasses', 'passesCost'
+                            ])
+                            writer.writeheader()
+                            writer.writerow({
+                                'tollOpID': data["tollOpID"],
+                                'tagOpID': data["tagOpID"],
+                                'requestTimestamp': data["requestTimestamp"],
+                                'periodFrom': data["periodFrom"],
+                                'periodTo': data["periodTo"],
+                                'nPasses': data["nPasses"],
+                                'passesCost': data["passesCost"]
+                            })
+                        print(f"Data saved to {filename}")
+
+                    elif args.format == 'json':
+                        # Αποθήκευση σε αρχείο JSON
+                        with open(filename, mode='w') as file:
+                            json.dump(data, file, indent=4)
+                        print(f"Data saved to {filename}")
+                except ValueError as e:
+                    print(f"Error parsing response JSON: {e}")
+                    print("Response content:", response.text)  # Εμφανίζουμε το σώμα της απάντησης για να το ελέγξουμε
+            else:
+                print(f"Error: {response.status_code} - {response.text}")  # Εμφανίζουμε το σώμα της απάντησης σε περίπτωση σφάλματος
+        else:
+            print("Incorrect parameters for passescost.")
+
+    # Chargesby
+    elif args.scope == 'chargesby':
+        if args.opid and args.from_ and args.to:
+            # Κλήση στο REST API για να πάρουμε τα δεδομένα
+            url = f"{BASE_URL}/chargesBy/{args.opid}/{args.from_}/{args.to}"
+            response = requests.get(url)
+
+            if response.status_code == 200:
+                try:
+                    data = response.json()  # Προσπαθούμε να αναλύσουμε το JSON
+                    # Αποθήκευση σε αρχείο ανάλογα με την επιλογή του χρήστη
+                    filename = f"chargesBy_{args.opid}_{args.from_}_{args.to}.{args.format}"
+
+                    if args.format == 'csv':
+                        # Αποθήκευση σε αρχείο CSV
+                        with open(filename, mode='w', newline='') as file:
+                            writer = csv.DictWriter(file, fieldnames=['visitingOpID', 'nPasses', 'passesCost'])
+                            writer.writeheader()
+                            for item in data["vOpList"]:
+                                writer.writerow({
+                                    'visitingOpID': item["visitingOpID"],
+                                    'nPasses': item["nPasses"],
+                                    'passesCost': item["passesCost"]
+                                })
+                        print(f"Data saved to {filename}")
+
+                    elif args.format == 'json':
+                        # Αποθήκευση σε αρχείο JSON
+                        with open(filename, mode='w') as file:
+                            json.dump(data, file, indent=4)
+                        print(f"Data saved to {filename}")
+                except ValueError as e:
+                    print(f"Error parsing response JSON: {e}")
+                    print("Response content:", response.text)  # Εμφανίζουμε το σώμα της απάντησης για να το ελέγξουμε
+            else:
+                print(f"Error: {response.status_code} - {response.text}")  # Εμφανίζουμε το σώμα της απάντησης σε περίπτωση σφάλματος
+        else:
+            print("Incorrect parameters for chargesby.")
+
+    else:
+        print("Invalid scope.")
+
+if __name__ == '__main__':
+    main()
+

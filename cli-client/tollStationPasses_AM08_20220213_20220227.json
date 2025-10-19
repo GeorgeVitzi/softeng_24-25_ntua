@@ -1,0 +1,170 @@
+{
+    "nPasses": 20,
+    "passList": [
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-14_19:46_AM08",
+            "passIndex": 1,
+            "passType": "visitor",
+            "tagID": "AMXAJI0Y6",
+            "timestamp": "2022-02-14 19:46"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-15_05:34_AM08",
+            "passIndex": 2,
+            "passType": "visitor",
+            "tagID": "OO7PZE9VI",
+            "timestamp": "2022-02-15 05:34"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-15_07:04_AM08",
+            "passIndex": 3,
+            "passType": "visitor",
+            "tagID": "KOIXA11DP",
+            "timestamp": "2022-02-15 07:04"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-15_11:45_AM08",
+            "passIndex": 4,
+            "passType": "visitor",
+            "tagID": "EGYTJXEPQ",
+            "timestamp": "2022-02-15 11:45"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-16_20:26_AM08",
+            "passIndex": 5,
+            "passType": "visitor",
+            "tagID": "AMXAJI0Y6",
+            "timestamp": "2022-02-16 20:26"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-17_04:43_AM08",
+            "passIndex": 6,
+            "passType": "visitor",
+            "tagID": "OO7PZE9VI",
+            "timestamp": "2022-02-17 04:43"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-17_10:53_AM08",
+            "passIndex": 7,
+            "passType": "visitor",
+            "tagID": "AMLJH75LX",
+            "timestamp": "2022-02-17 10:53"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-19_03:56_AM08",
+            "passIndex": 8,
+            "passType": "visitor",
+            "tagID": "OOZSJ49IT",
+            "timestamp": "2022-02-19 03:56"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-20_04:39_AM08",
+            "passIndex": 9,
+            "passType": "visitor",
+            "tagID": "KOIXA11DP",
+            "timestamp": "2022-02-20 04:39"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-20_20:55_AM08",
+            "passIndex": 10,
+            "passType": "visitor",
+            "tagID": "AMHJ7XVG0",
+            "timestamp": "2022-02-20 20:55"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-20_22:52_AM08",
+            "passIndex": 11,
+            "passType": "visitor",
+            "tagID": "KOIXA11DP",
+            "timestamp": "2022-02-20 22:52"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-21_00:14_AM08",
+            "passIndex": 12,
+            "passType": "visitor",
+            "tagID": "OO7PZE9VI",
+            "timestamp": "2022-02-21 00:14"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-21_09:24_AM08",
+            "passIndex": 13,
+            "passType": "visitor",
+            "tagID": "AMXAJI0Y6",
+            "timestamp": "2022-02-21 09:24"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-21_14:32_AM08",
+            "passIndex": 14,
+            "passType": "visitor",
+            "tagID": "EG9CHJ755",
+            "timestamp": "2022-02-21 14:32"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-21_15:10_AM08",
+            "passIndex": 15,
+            "passType": "visitor",
+            "tagID": "OO7PZE9VI",
+            "timestamp": "2022-02-21 15:10"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-22_01:08_AM08",
+            "passIndex": 16,
+            "passType": "visitor",
+            "tagID": "AMNT3W5UZ",
+            "timestamp": "2022-02-22 01:08"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-22_09:59_AM08",
+            "passIndex": 17,
+            "passType": "visitor",
+            "tagID": "EG9CHJ755",
+            "timestamp": "2022-02-22 09:59"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-23_12:43_AM08",
+            "passIndex": 18,
+            "passType": "visitor",
+            "tagID": "EGYTJXEPQ",
+            "timestamp": "2022-02-23 12:43"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-24_00:16_AM08",
+            "passIndex": 19,
+            "passType": "visitor",
+            "tagID": "AMXAJI0Y6",
+            "timestamp": "2022-02-24 00:16"
+        },
+        {
+            "passCharge": 2.8,
+            "passID": "2022-02-24_07:37_AM08",
+            "passIndex": 20,
+            "passType": "visitor",
+            "tagID": "EGYTJXEPQ",
+            "timestamp": "2022-02-24 07:37"
+        }
+    ],
+    "periodFrom": "2022-02-13",
+    "periodTo": "2022-02-27",
+    "requestTimestamp": "2025-02-15 10:09",
+    "stationID": "AM08",
+    "stationOperator": "aegeanmotorway"
+}
