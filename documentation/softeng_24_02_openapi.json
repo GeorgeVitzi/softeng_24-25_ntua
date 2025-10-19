@@ -1,0 +1,324 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Toll Management API",
+    "description": "API for managing toll station passes and related data.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.example.com",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://staging.example.com",
+      "description": "Staging Server"
+    }
+  ],
+  "paths": {
+    "/tollStationPasses/{tollStationID}/{date_from}/{date_to}": {
+      "get": {
+        "summary": "Get passes for a specific toll station within a time range",
+        "parameters": [
+          {
+            "name": "tollStationID",
+            "in": "path",
+            "required": true,
+            "description": "ID of the toll station",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date_from",
+            "in": "path",
+            "required": true,
+            "description": "Start date (format: YYYYMMDD)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date_to",
+            "in": "path",
+            "required": true,
+            "description": "End date (format: YYYYMMDD)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "description": "Response format (json or csv)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of passes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TollStationPassesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/passAnalysis/{stationOpID}/{tagOpID}/{date_from}/{date_to}": {
+      "get": {
+        "summary": "Analyze passes between operators within a date range",
+        "parameters": [
+          {
+            "name": "stationOpID",
+            "in": "path",
+            "required": true,
+            "description": "ID of the station operator",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagOpID",
+            "in": "path",
+            "required": true,
+            "description": "ID of the tag operator",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date_from",
+            "in": "path",
+            "required": true,
+            "description": "Start date (format: YYYYMMDD)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date_to",
+            "in": "path",
+            "required": true,
+            "description": "End date (format: YYYYMMDD)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Analysis of passes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PassAnalysisResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/passesCost/{tollOpID}/{tagOpID}/{date_from}/{date_to}": {
+      "get": {
+        "summary": "Calculate the total cost of passes for a specific tag operator",
+        "parameters": [
+          {
+            "name": "tollOpID",
+            "in": "path",
+            "required": true,
+            "description": "ID of the toll operator",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagOpID",
+            "in": "path",
+            "required": true,
+            "description": "ID of the tag operator",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date_from",
+            "in": "path",
+            "required": true,
+            "description": "Start date (format: YYYYMMDD)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date_to",
+            "in": "path",
+            "required": true,
+            "description": "End date (format: YYYYMMDD)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cost of passes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PassesCostResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/chargesBy/{tollOpID}/{date_from}/{date_to}": {
+      "get": {
+        "summary": "Get charges by other operators for a specific toll operator",
+        "parameters": [
+          {
+            "name": "tollOpID",
+            "in": "path",
+            "required": true,
+            "description": "ID of the toll operator",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date_from",
+            "in": "path",
+            "required": true,
+            "description": "Start date (format: YYYYMMDD)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date_to",
+            "in": "path",
+            "required": true,
+            "description": "End date (format: YYYYMMDD)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Charges by visiting operators",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChargesByResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TollStationPassesResponse": {
+        "type": "object",
+        "properties": {
+          "stationID": { "type": "string" },
+          "stationOperator": { "type": "string" },
+          "requestTimestamp": { "type": "string", "format": "date-time" },
+          "periodFrom": { "type": "string" },
+          "periodTo": { "type": "string" },
+          "nPasses": { "type": "integer" },
+          "passList": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Pass" }
+          }
+        }
+      },
+      "Pass": {
+        "type": "object",
+        "properties": {
+          "passIndex": { "type": "integer" },
+          "passID": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "tagID": { "type": "string" },
+          "passType": { "type": "string" },
+          "passCharge": { "type": "number", "format": "float" }
+        }
+      },
+      "PassAnalysisResponse": {
+        "type": "object",
+        "properties": {
+          "stationOpID": { "type": "string" },
+          "tagOpID": { "type": "string" },
+          "requestTimestamp": { "type": "string", "format": "date-time" },
+          "periodFrom": { "type": "string" },
+          "periodTo": { "type": "string" },
+          "passList": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Pass" }
+          }
+        }
+      },
+      "PassesCostResponse": {
+        "type": "object",
+        "properties": {
+          "tollOpID": { "type": "string" },
+          "tagOpID": { "type": "string" },
+          "requestTimestamp": { "type": "string", "format": "date-time" },
+          "periodFrom": { "type": "string" },
+          "periodTo": { "type": "string" },
+          "nPasses": { "type": "integer" },
+          "passesCost": { "type": "number", "format": "float" }
+        }
+      },
+      "ChargesByResponse": {
+        "type": "object",
+        "properties": {
+          "tollOpID": { "type": "string" },
+          "requestTimestamp": { "type": "string", "format": "date-time" },
+          "periodFrom": { "type": "string" },
+          "periodTo": { "type": "string" },
+          "vOpList": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "visitingOpID": { "type": "string" },
+                "nPasses": { "type": "integer" },
+                "passesCost": { "type": "number", "format": "float
+
