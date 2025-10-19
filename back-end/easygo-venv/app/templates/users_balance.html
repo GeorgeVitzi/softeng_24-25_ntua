@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/styles_welcome_user.css">
+
+<div class="navbar">
+    <div class="nav-items">
+        <a href="{{ url_for('welcome_user') }}">Welcome</a>
+        <a href="{{ url_for('users_balance') }}">Balance</a>
+        <a href="{{ url_for('partners') }}">Our Partners</a>
+        <a href="{{ url_for('account') }}">My Account</a>
+    </div>
+    <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+</div>
+
+<!-- Main Content Container -->
+<div class="balance-container">
+    <div class="card">
+        <!-- Logo Section -->
+        <div class="card-logo">
+            <img src="/static/images/logo.png" alt="EasyGo Logo" />
+        </div>
+        <!-- Info Section -->
+        <div class="card-info">
+            <p><b>Username:</b> {{ username }}</p>
+            <p><b>Tag ID:</b> {{ tag_id }}</p>
+            <p><b>Your current balance is:</b> {{ balance }}</p>
+
+            <!-- Conditionally Render the Form -->
+            {% if show_form %}
+                <form method="POST" action="{{ url_for('users_balance') }}">
+                    <label for="amount">Enter amount to load:</label>
+                    <input type="number" id="amount" name="amount" required>
+                    <button type="submit">Load Money</button>
+                </form>
+            {% else %}
+                <a class="button" href="{{ url_for('users_balance', load_target='true') }}">Load the target</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Footer Container -->
+<div class="footer-container">
+    <div class="footer-left">© 2024 EasyGo</div>
+    <div class="footer-center">Contact: info@easygo.gr or 2104242424</div>
+    <div class="footer-right">Developed by Softeng 24-2</div>
+</div>
+
+{% endblock %}

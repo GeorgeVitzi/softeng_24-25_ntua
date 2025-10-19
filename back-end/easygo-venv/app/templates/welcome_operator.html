@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/styles_welcome_operator.css">
+<!-- Navigation Bar -->
+<div class="navbar">
+    <div class="nav-items">
+        <a  href="{{ url_for('welcome_operator') }}">Welcome</a>
+        <a  href="{{url_for('opbal')}}">Balance</a>
+        <a  href="{{url_for('stat')}}">Statistics</a>
+        <a href="{{ url_for('partners_op') }}">Our Partners</a>
+        <a href="{{ url_for('account_op') }}">My Account</a>
+
+    </div>
+    <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+</div>
+
+
+<!-- Image Carousel with Captions and Arrows -->
+<div class="image-carousel-container">
+    <!-- Images container -->
+    <div class="carousel-images">
+        <div class="carousel-slide">
+            <img src="/static/images/image1.jpg" alt="Image 1">
+            <figcaption>Νέα Οδός</figcaption>
+        </div>
+        <div class="carousel-slide">
+            <img src="/static/images/image2.jpg" alt="Image 2">
+            <figcaption>Αττική Οδός</figcaption>
+        </div>
+        <div class="carousel-slide">
+            <img src="/static/images/image3.jpg" alt="Image 3">
+            <figcaption>Γέφυρα</figcaption>
+        </div>
+        <div class="carousel-slide">
+            <img src="/static/images/image4.jpg" alt="Image 4">
+            <figcaption>Εγνατία Οδός</figcaption>
+        </div>
+        <div class="carousel-slide">
+            <img src="/static/images/image5.jpg" alt="Image 5">
+            <figcaption>Κεντρική Οδός</figcaption>
+        </div>
+        <div class="carousel-slide">
+            <img src="/static/images/image6.jpg" alt="Image 6">
+            <figcaption>Μορέας</figcaption>
+        </div>
+        <div class="carousel-slide">
+            <img src="/static/images/image7.jpg" alt="Image 7">
+            <figcaption>Ολυμπία Οδός</figcaption>
+        </div>
+        <div class="carousel-slide">
+            <img src="/static/images/image8.jpg" alt="Image 8">
+            <figcaption>Aegean Motorway</figcaption>
+        </div>
+    </div>
+
+    <!-- Left Arrow -->
+    <span class="carousel-arrow left" onclick="changeImage(-1)">&#10094;</span>
+    <!-- Right Arrow -->
+    <span class="carousel-arrow right" onclick="changeImage(1)">&#10095;</span>
+</div>
+
+<!-- Welcome Container -->
+<div class="welcome-container">
+    <div class="welcome-content">
+        <!-- Logo -->
+        <div class="company-logo">
+            <img src="/static/images/logo.png" alt="EasyGo Logo">
+        </div>
+
+        <!-- Text -->
+        <div class="welcome-text">
+            <h2>Welcome to EasyGo, {{ session.username }}!</h2>
+            <p>
+                EasyGo is an interoperability provider for tolling systems on highways in Greece, with different automatic passage systems!
+            </p>
+            <p>
+                EasyGo is independent from the highway operators. Our mission is the interoperability of these highways, as well as providing services for data availability and analysis of highway usage data.
+            </p>
+            <p>
+                Our application collects passage data from operators and stores it accordingly.Then, it periodically calculates the financial settlements between operators and makes data available for analysis to third parties. We also conduct some of these analyses ourselves.
+            </p>
+            <p>
+                EasyGo also allows users/e-pass holders to reload their target,as well as access various statistical data.
+            </p>
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+    let currentIndex = 0;
+    let slides = document.querySelectorAll('.carousel-slide');
+    let totalSlides = slides.length;
+
+    function changeImage(direction) {
+        currentIndex += direction;
+        if (currentIndex < 0) {
+            currentIndex = totalSlides - 1; // If at the beginning, go to the last image
+        }
+        if (currentIndex >= totalSlides) {
+            currentIndex = 0; // If at the end, go to the first image
+        }
+
+        // Move the slides container to the correct image
+        document.querySelector('.carousel-images').style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    // Automatic slide change every 5 seconds
+    setInterval(() => changeImage(1), 5000);
+
+</script>
+
+<!-- Footer Container -->
+<div class="footer-container">
+    <!-- Left Section -->
+    <div class="footer-left">
+        © 2024 EasyGo
+    </div>
+    
+    <!-- Center Section -->
+    <div class="footer-center">
+        Contact: info@easygo.gr or 2104242424
+    </div>
+    
+    <!-- Right Section -->
+    <div class="footer-right">
+        Developed by Softeng 24-2
+    </div>
+</div>
+
+
+{% endblock %}

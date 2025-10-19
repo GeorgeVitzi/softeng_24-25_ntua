@@ -1,0 +1,407 @@
+
+body {
+    height: 100vh; /* Ορίζουμε το ύψος του body να είναι 100% του viewport */
+    background-image: url('/static/images/main_w.jpg');
+    background-position: center center; /* Κεντράρισμα της εικόνας */
+    background-repeat: no-repeat; /* Αποφυγή επανάληψης της εικόνας */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Κεντρικές καρτέλες και logout δεξιά */
+    align-items: center;
+    background-color: rgba(255, 255, 255); /* Σκούρο διάφανο background */
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Στυλ για τα κουμπιά πλοήγησης */
+.nav-items {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-items a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+}
+
+.nav-items a:hover {
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+}
+
+/* Στυλ για το κουμπί Logout */
+.logout-button {
+    color: white;
+    background-color: #0a3986;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #0a3986;
+}
+/* Carousel container */
+.image-carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 1400px; /* Ή το μέγεθος που θέλεις για το carousel */
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Hide all images initially */
+.carousel-images {
+    display: flex;
+    transition: transform 1s ease;
+}
+
+/* Each individual image */
+.carousel-slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Set fixed width and height for all images */
+.carousel-slide img {
+    width: 1400px;  /* To fill the container */
+    height: 650px; /* Or any height you want */
+    object-fit: cover; /* Ensures the images fit without distortion */
+}
+
+/* Caption styling */
+figcaption {
+    margin-top: 20px;
+    font-size: 32px;
+    color: #ffffff;
+}
+
+/* Arrows (left and right) */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.carousel-arrow.left {
+    left: 10px;
+}
+
+.carousel-arrow.right {
+    right: 10px;
+}
+
+.carousel-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+/* Welcome container */
+.welcome-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff; /* Μπορείς να το αλλάξεις αν θέλεις */
+    padding: 50px 0;
+    width: 100%;
+    margin-top: 50px; /* Ρυθμίζει την απόσταση από την κορυφή της οθόνης */
+}
+
+.welcome-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px; /* Περιορίζει το πλάτος του περιεχομένου */
+    width: 100%;
+    background-color: #6aabfa; /* Λευκό φόντο για το container */
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Προσθήκη σκιάς για καλύτερη οπτική αντίθεση */
+}
+
+.company-logo img {
+    width: 300px; /* Ορίστε το πλάτος του λογότυπου ανάλογα με το μέγεθος */
+    height: auto;
+}
+
+.welcome-text {
+    max-width: 700px; /* Περιορίζει το πλάτος του κειμένου */
+    font-size: 16px;
+    color: #000000;
+    line-height: 1.6;
+}
+
+.welcome-text h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff; /* Μπορείς να αλλάξεις το χρώμα για να το κάνεις πιο εντυπωσιακό */
+    margin-bottom: 20px;
+}
+
+.welcome-text p {
+    margin-bottom: 15px;
+}
+
+/* Footer Styling */
+.footer-container {
+    width: 100%;
+    max-width: 100%; /* Αποτρέπει το footer να ξεπερνά τα όρια της σελίδας */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* Λίγο padding γύρω από το περιεχόμενο */
+    background-color: #f8f9fa;
+    position: fixed; /* Κάνει το footer να είναι πάντα στο κάτω μέρος της οθόνης */
+    bottom: 0; /* Το τοποθετεί ακριβώς στο κάτω μέρος της σελίδας */
+    left: 0;
+    right: 0;
+    font-size: 14px;
+    color: #333;
+    z-index: 1000; /* Διασφαλίζει ότι το footer θα είναι πάνω από οποιοδήποτε άλλο στοιχείο */
+}
+
+/* Οι τρεις περιοχές του footer */
+.footer-left, .footer-center, .footer-right {
+    flex: 1; /* Κάνει τα τρία τμήματα να πάρουν ίσο πλάτος */
+    text-align: center;
+}
+
+/* Στα αριστερά, κέντρο και δεξιά των στοιχείων, δίνουμε την αντίστοιχη ευθυγράμμιση */
+.footer-left {
+    text-align: left;
+}
+
+.footer-center {
+    text-align: center;
+}
+
+.footer-right {
+    text-align: right;
+}
+/* Στυλ για το container του footer */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+}
+.footer-left, .footer-center, .footer-right {
+    flex: 1;
+    text-align: center;
+}
+
+
+.partners-container h1 {
+    color: white;
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.partners-container p {
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.partners-columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.partners-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.partner {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 2);
+}
+
+.partner-logo img {
+    width: 130px;
+    height: 100px;
+    margin-right: 20px;
+}
+
+.partner-info h3 {
+    font-size: 20px;
+    margin: 0;
+    color: #333;
+}
+
+.partner-info a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+}
+
+.partner-info a:hover {
+    color: #0056b3;
+}
+
+
+
+
+
+.balance-container {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 2);
+    padding: 20px;
+    max-width: 800px;
+    width: 100%;
+}
+
+.card-logo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-logo img {
+    max-width: 200px;
+    height: auto;
+}
+
+.card-info {
+    flex: 2;
+    padding-left: 20px;
+}
+
+.card-info p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.card-info form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-info label {
+    font-weight: bold;
+}
+
+.card-info input {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.card-info button {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.card-info button:hover {
+    background-color: #0056b3;
+}
+
+.card-info a.button {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+    background-color: #28a745;
+    border-radius: 4px;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.card-info a.button:hover {
+    background-color: #218838;
+}
+
+
+
+
+
+
+.account-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px;
+    gap: 20px;
+}
+
+.logo-container {
+    flex: 1;
+    text-align: center;
+}
+
+.logo-image {
+    max-width: 300px;
+    height: auto;
+}
+
+.details-container {
+    flex: 2;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.details-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.details-container p {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #555;
+}
+
+

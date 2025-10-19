@@ -1,0 +1,85 @@
+/* Στυλ για το container της register σελίδας */
+body {
+    margin: 0; /* Αφαίρεση του default περιθωρίου */
+    padding: 0; /* Αφαίρεση του padding */
+    height: 100vh; /* Ορίζουμε το ύψος του body να είναι 100% του viewport */
+    background-image: url('/static/images/login.jpg');
+    background-size: cover; /* Καλύπτει όλη την οθόνη και κόβει την εικόνα αν είναι απαραίτητο */
+    background-position: center center; /* Κεντράρισμα της εικόνας */
+    background-repeat: no-repeat; /* Αποφυγή επανάληψης της εικόνας */
+    overflow: hidden; /* Κρύβει τυχόν περιττό μέρος της εικόνας που ξεπερνά το παράθυρο */
+}
+
+.register-container {
+    background-color: rgba(255, 255, 255, 0.3); /* Διάφανο κουτί */
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: 100px auto; /* Κέντρο */
+    text-align: center; /* Κεντραρισμένο το περιεχόμενο */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    width: 150px; /* Ορισμός του πλάτους της εικόνας */
+    height: auto; /* Αυτόματη προσαρμογή του ύψους */
+    margin-bottom: 20px; /* Κενό κάτω από το λογότυπο */
+}
+
+/* Στυλ για τις ομάδες εισόδου */
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Στυλ για τα εικονίδια */
+.input-group .icon {
+    margin-right: 10px;
+    color: #007bff;
+    font-size: 18px;
+}
+
+/* Στυλ για τα πεδία εισόδου */
+.input-group input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 8px;
+    font-size: 16px;
+    background: none;
+}
+
+/* Στυλ για το κουμπί εγγραφής */
+.button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* Στυλ για τον σύνδεσμο στο κάτω μέρος */
+.register-container a {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.register-container a:hover {
+    text-decoration: underline;
+}

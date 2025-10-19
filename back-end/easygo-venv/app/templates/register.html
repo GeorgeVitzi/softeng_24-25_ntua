@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/styles_register.css">
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<div class="register-container">
+    <img src="/static/images/logo.png" alt="EasyGo Logo" class="logo"> <!-- Εδώ είναι η εικόνα του λογότυπου -->
+
+    <form method="POST" action="{{ url_for('register') }}">
+        <div class="input-group">
+            <i class="fa fa-user icon"></i> <!-- Εικονίδιο χρήστη -->
+            <input type="text" name="username" placeholder="Username" required>
+        </div>
+        <div class="input-group">
+            <span class="icon"><i class="fa fa-key"></i></span>
+                <input type="password" name="password" id="password" required>
+                <span class="toggle-password" onclick="togglePassword()">
+                    <i class="fa fa-eye-slash" id="toggle-icon"></i>
+            </span>
+        </div>
+        <div class="input-group">
+            <i class="fa fa-envelope icon"></i> <!-- Εικονίδιο email -->
+            <input type="email" name="email" placeholder="Email" required>
+        </div>
+        <div class="input-group">
+            <i class="fa fa-id-card icon"></i> <!-- Εικονίδιο για Tag ID -->
+            <input type="text" name="tag_id" placeholder="Tag ID" required>
+        </div>
+        <button type="submit" class="button">Register</button>
+    </form>
+
+    <a href="{{ url_for('login') }}">Already have an account? Login here</a>
+</div>
+<script>
+    // JavaScript για το toggle του password
+    function togglePassword() {
+        const passwordField = document.getElementById('password');
+        const toggleIcon = document.getElementById('toggle-icon');
+
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            toggleIcon.classList.remove('fa-eye-slash');
+            toggleIcon.classList.add('fa-eye');
+        } else {
+            passwordField.type = 'password';
+            toggleIcon.classList.remove('fa-eye');
+            toggleIcon.classList.add('fa-eye-slash');
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,413 @@
+
+body {
+    height: 100vh; /* Ορίζουμε το ύψος του body να είναι 100% του viewport */
+    background-image: url('/static/images/main_w.jpg');
+    background-position: center center; /* Κεντράρισμα της εικόνας */
+    background-repeat: no-repeat; /* Αποφυγή επανάληψης της εικόνας */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Κεντρικές καρτέλες και logout δεξιά */
+    align-items: center;
+    background-color: rgba(255, 255, 255); /* Σκούρο διάφανο background */
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Στυλ για τα κουμπιά πλοήγησης */
+.nav-items {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-items a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+}
+
+.nav-items a:hover {
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+}
+
+/* Στυλ για το κουμπί Logout */
+.logout-button {
+    color: white;
+    background-color: #0a3986;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #0a3986;
+}
+/* Carousel container */
+.image-carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 1400px; /* Ή το μέγεθος που θέλεις για το carousel */
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Hide all images initially */
+.carousel-images {
+    display: flex;
+    transition: transform 1s ease;
+}
+
+/* Each individual image */
+.carousel-slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Set fixed width and height for all images */
+.carousel-slide img {
+    width: 1400px;  /* To fill the container */
+    height: 650px; /* Or any height you want */
+    object-fit: cover; /* Ensures the images fit without distortion */
+}
+
+/* Caption styling */
+figcaption {
+    margin-top: 20px;
+    font-size: 32px;
+    color: #ffffff;
+}
+
+/* Arrows (left and right) */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.carousel-arrow.left {
+    left: 10px;
+}
+
+.carousel-arrow.right {
+    right: 10px;
+}
+
+.carousel-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+/* Welcome container */
+.welcome-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff; /* Μπορείς να το αλλάξεις αν θέλεις */
+    padding: 50px 0;
+    width: 100%;
+    margin-top: 50px; /* Ρυθμίζει την απόσταση από την κορυφή της οθόνης */
+}
+
+.welcome-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px; /* Περιορίζει το πλάτος του περιεχομένου */
+    width: 100%;
+    background-color: #6aabfa; /* Λευκό φόντο για το container */
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Προσθήκη σκιάς για καλύτερη οπτική αντίθεση */
+}
+
+.company-logo img {
+    width: 300px; /* Ορίστε το πλάτος του λογότυπου ανάλογα με το μέγεθος */
+    height: auto;
+}
+
+.welcome-text {
+    max-width: 700px; /* Περιορίζει το πλάτος του κειμένου */
+    font-size: 16px;
+    color: #000000;
+    line-height: 1.6;
+}
+
+.welcome-text h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff; /* Μπορείς να αλλάξεις το χρώμα για να το κάνεις πιο εντυπωσιακό */
+    margin-bottom: 20px;
+}
+
+.welcome-text p {
+    margin-bottom: 15px;
+}
+
+/* Footer Styling */
+.footer-container {
+    width: 100%;
+    max-width: 100%; /* Αποτρέπει το footer να ξεπερνά τα όρια της σελίδας */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* Λίγο padding γύρω από το περιεχόμενο */
+    background-color: #f8f9fa;
+    position: fixed; /* Κάνει το footer να είναι πάντα στο κάτω μέρος της οθόνης */
+    bottom: 0; /* Το τοποθετεί ακριβώς στο κάτω μέρος της σελίδας */
+    left: 0;
+    right: 0;
+    font-size: 14px;
+    color: #333;
+    z-index: 1000; /* Διασφαλίζει ότι το footer θα είναι πάνω από οποιοδήποτε άλλο στοιχείο */
+}
+
+/* Οι τρεις περιοχές του footer */
+.footer-left, .footer-center, .footer-right {
+    flex: 1; /* Κάνει τα τρία τμήματα να πάρουν ίσο πλάτος */
+    text-align: center;
+}
+
+/* Στα αριστερά, κέντρο και δεξιά των στοιχείων, δίνουμε την αντίστοιχη ευθυγράμμιση */
+.footer-left {
+    text-align: left;
+}
+
+.footer-center {
+    text-align: center;
+}
+
+.footer-right {
+    text-align: right;
+}
+/* Στυλ για το container του footer */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+}
+.footer-left, .footer-center, .footer-right {
+    flex: 1;
+    text-align: center;
+}
+
+
+
+
+
+/* Balance Container Styling */
+.balance-container {
+    margin: 50px auto;
+    padding: 30px;
+    max-width: 800px;
+    background-color: #f8f9fa; /* Απαλό γκρι φόντο */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ελαφριά σκιά για καλύτερη εμφάνιση */
+    text-align: center;
+    font-family: Arial, sans-serif;
+    padding-bottom: 50px; /* Αύξηση του padding στο κάτω μέρος */
+}
+
+.balance-container h2 {
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.balance-container p {
+    color: #333;
+    font-size: 16px;
+}
+
+.balance-container form {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.balance-container label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.balance-container select,
+.balance-container input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.balance-container select:focus,
+.balance-container input[type="date"]:focus {
+    border-color: #007bff;
+}
+
+.balance-container button {
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.balance-container button:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+
+.partners-container h1 {
+    color: white;
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.partners-container p {
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.partners-columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.partners-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.partner {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 2);
+}
+
+.partner-logo img {
+    width: 130px;
+    height: 100px;
+    margin-right: 20px;
+}
+
+.partner-info h3 {
+    font-size: 20px;
+    margin: 0;
+    color: #333;
+}
+
+.partner-info a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+}
+
+.partner-info a:hover {
+    color: #0056b3;
+}
+
+
+
+
+
+
+.account-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px;
+    gap: 20px;
+}
+
+.logo-container {
+    flex: 1;
+    text-align: center;
+}
+
+.logo-image {
+    max-width: 300px;
+    height: auto;
+}
+
+.details-container {
+    flex: 2;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.details-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.details-container p {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #555;
+}
+
+
+
+/* Chart Wrapper Styling */
+.chart-wrapper {
+    background-color: #ffffff;
+    border-radius: 10px; /* Ελαφριά καμπύλη στις γωνίες */
+    padding: 30px; /* Εσωτερικό περιθώριο γύρω από το διάγραμμα */
+    margin-top: 30px; /* Απόσταση από την κορυφή της σελίδας */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 1); /* Ελαφριά σκιά για καλύτερη εμφάνιση */
+    max-width: 50%; /* Μέγιστο πλάτος για να μην ξεπερνάει το container */
+    margin: 10; /* Κεντράρισμα του διαγράμματος */
+}
+
+/* Chart Container */
+.chart-container {
+    position: relative;
+    height: 50vh; /* Μείωση του ύψους του διαγράμματος */
+    width: 100%;
+}
+
+/* CSS για το κέντρο τοποθέτησης του κουμπιού */
+.pay-debt-container {
+    position: center ;
+    text-align: center; /* Κεντράρισμα του κουμπιού */
+    margin-top: 20px; /* Προαιρετικό: προσθήκη κενής απόστασης από πάνω */
+}
+

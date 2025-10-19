@@ -1,0 +1,502 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/styles_welcome_operator.css">
+
+<!-- Navigation Bar -->
+<div class="navbar">
+    <div class="nav-items">
+        <a href="{{ url_for('welcome_operator') }}">Welcome</a>
+        <a href="{{ url_for('opbal') }}">Balance</a>
+        <a href="{{ url_for('stat') }}">Statistics</a>
+        <a href="{{ url_for('partners_op') }}">Our Partners</a>
+        <a href="{{ url_for('account_op') }}">My Account</a>
+    </div>
+    <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+</div>
+
+<div class="export-data">
+    <button id="exportDataButton">EXPORT DATA</button>
+</div>
+
+<!-- Crossings per Month -->
+<div class="chart-wrapper">
+    <h2>Crossings per Month-Year-Company</h2>
+    <div class="controls">
+        <label for="company-select">Select Company:</label>
+        <select id="company-select">
+            <option value="AM">Aegean</option>
+            <option value="GE">Γέφυρα</option>
+            <option value="EG">Εγνατία Οδός</option>
+            <option value="KO">Κεντρική Οδός</option>
+            <option value="MO">Μορέας</option>
+            <option value="NAO">Αττική Οδός</option>
+            <option value="NO">Νέα Οδός</option>
+            <option value="OO">Ολυμπία Οδός</option>
+        </select>
+
+        <label for="year-select">Select Year:</label>
+        <select id="year-select">
+            {% for year in range(2020, 2025) %}
+                <option value="{{ year }}">{{ year }}</option>
+            {% endfor %}
+        </select>
+
+        <button id="load-chart">Load Chart</button>
+    </div>
+
+    <canvas id="crossingsChart"></canvas>
+</div>
+
+
+<div class="chart-wrapper">
+    <h2>Crossings per Month-Year-Company from Different Providers</h2>
+    <div class="form-group">
+        <label for="operatorSelect2">Select Operator:</label>
+        <select id="operatorSelect2">
+            <option value="AM">Aegean</option>
+            <option value="GE">Γέφυρα</option>
+            <option value="EG">Εγνατία Οδός</option>
+            <option value="KO">Κεντρική Οδός</option>
+            <option value="MO">Μορέας</option>
+            <option value="NAO">Αττική Οδός</option>
+            <option value="NO">Νέα Οδός</option>
+            <option value="OO">Ολυμπία Οδός</option>        
+        </select>
+        <label for="yearSelect2">Select Year:</label>
+        <select id="yearSelect2">
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+        </select>
+
+        <button id="loadChart2">Load Chart</button>
+    </div>
+    <canvas id="myChart2"></canvas>
+</div>
+
+<div class="chart-wrapper">
+    <h2>Crossings per Year-Company by Different Providers</h2>
+    <div class="form-group">
+        <label for="yearSelect3">Select Year:</label>
+        <select id="yearSelect3">
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+        </select>
+        <button id="loadChart3">Load Chart</button>
+    </div>
+    <canvas id="operatorsChart"></canvas>
+</div>
+
+
+<div class="chart-wrapper">
+    <h2>Top 3 Crossings Per Toll Operator</h2>
+    <canvas id="top3Chart"></canvas>
+</div>
+
+<div class="chart-wrapper">
+    <h2>Average Payment per User per Month</h2>
+    <div class="form-group">
+        <label for="yearSelect5">Select Year:</label>
+        <select id="yearSelect5">
+            {% for year in range(2020, 2025) %}
+                <option value="{{ year }}">{{ year }}</option>
+            {% endfor %}
+        </select>
+        <button id="loadChart5">Load Chart</button>
+    </div>
+    <canvas id="averagePaymentChart"></canvas>
+</div>
+
+
+<!-- Footer -->
+<div class="footer-container">
+    <div class="footer-left">© 2024 EasyGo</div>
+    <div class="footer-center">Contact: info@easygo.gr or 2104242424</div>
+    <div class="footer-right">Developed by Softeng 24-2</div>
+</div>
+
+<!-- Chart.js Script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.getElementById('load-chart').addEventListener('click', () => {
+        const company = document.getElementById('company-select').value;
+        const year = document.getElementById('year-select').value;
+
+        fetch(`/api/statistics/crossings?company=${company}&year=${year}`)
+            .then(response => response.json())
+            .then(data => {
+                const labels = Object.keys(data).map(month => new Date(0, month - 1).toLocaleString('default', { month: 'short' }));
+                const crossings = Object.values(data);
+
+                // Δημιουργία ή ανανέωση του διαγράμματος
+                const ctx = document.getElementById('crossingsChart').getContext('2d');
+                if (window.crossingsChartInstance) {
+                    window.crossingsChartInstance.destroy();
+                }
+                window.crossingsChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: `Crossings in ${year}`,
+                            data: crossings,
+                            backgroundColor: 'rgba(255, 206, 86, 0.6)',
+                            borderColor: 'rgba(255, 206, 86, 0.6)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: `Crossings per Month for ${company}`
+                            }
+                        },
+                        responsive: true,
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Month'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Crossings'
+                                },
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Error loading chart data:', error));
+    });
+</script>
+<script>
+let myChart2 = null; // Μεταβλητή για αποθήκευση του instance του Chart
+
+document.getElementById('loadChart2').addEventListener('click', () => {
+    const operatorId = document.getElementById('operatorSelect2').value;
+    const year = document.getElementById('yearSelect2').value;
+
+    fetch(`/api/statistics/providers?operator_id=${operatorId}&year=${year}`)
+        .then(response => response.json())
+        .then(data => {
+            const labels = Array.from({ length: 12 }, (_, i) => new Date(0, i).toLocaleString('default', { month: 'long' }));
+            const crossings = labels.map((_, index) => data[index + 1] || 0);
+
+            const ctx = document.getElementById('myChart2').getContext('2d');
+
+            // Αν υπάρχει ήδη instance του Chart, καταστρέψτε το πριν δημιουργηθεί νέο
+            if (myChart2) {
+                myChart2.destroy();
+            }
+
+            // Δημιουργία νέου γραφήματος
+            myChart2 = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: `Crossings from Different Providers (${operatorId})`,
+                        data: crossings,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Crossings per Month from Different Providers'
+                        }
+                    },
+                    responsive: true,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Months'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Number of Crossings'
+                            }
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching statistics data:', error));
+});
+
+</script>
+<script>
+    document.getElementById('loadChart3').addEventListener('click', () => {
+        const year = document.getElementById('yearSelect3').value;
+    
+        // Map για μετάφραση operator IDs σε ονόματα
+        const operatorNames = {
+            "AM": "Aegean",
+            "GE": "Γέφυρα",
+            "EG": "Εγνατία Οδός",
+            "KO": "Κεντρική Οδός",
+            "MO": "Μορέας",
+            "NAO": "Αττική Οδός",
+            "NO": "Νέα Οδός",
+            "OO": "Ολυμπία Οδός"
+        };
+    
+        fetch(`/api/statistics/operators_crossings?year=${year}`)
+            .then(response => response.json())
+            .then(data => {
+                const labels = Object.keys(data).map(id => operatorNames[id] || id); // Χρήση των ονομάτων
+                const crossings = Object.values(data); // Crossings
+    
+                const ctx = document.getElementById('operatorsChart').getContext('2d');
+    
+                // Αν υπάρχει ήδη instance του Chart, καταστρέψτε το πριν δημιουργηθεί νέο
+                if (window.operatorsChartInstance) {
+                    window.operatorsChartInstance.destroy();
+                }
+    
+                // Δημιουργία νέου γραφήματος
+                window.operatorsChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: `Crossings in ${year}`,
+                            data: crossings,
+                            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: `Crossings by Different Operators (${year})`
+                            }
+                        },
+                        responsive: true,
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Operators'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Number of Crossings'
+                                },
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching statistics data:', error));
+    });
+    </script>
+    
+<script>
+ document.addEventListener('DOMContentLoaded', () => {
+    fetch('/api/statistics/top3_crossings')
+        .then(response => response.json())
+        .then(data => {
+            // Λεξικό χαρτογράφησης ID -> Ονομασία
+            const operatorNames = {
+                "AM": "Aegean",
+                "GE": "Γέφυρα",
+                "EG": "Εγνατία Οδός",
+                "KO": "Κεντρική Οδός",
+                "MO": "Μορέας",
+                "NAO": "Αττική Οδός",
+                "NO": "Νέα Οδός",
+                "OO": "Ολυμπία Οδός"
+            };
+
+            const operators = Object.keys(data);
+            const labels = operators.map(op => operatorNames[op] || op);
+
+            // Χρώματα για κάθε rank
+            const rankColors = [
+                { background: 'rgba(255, 99, 132, 0.6)', border: 'rgba(255, 99, 132, 1)' }, // Rank 1
+                { background: 'rgba(54, 162, 235, 0.6)', border: 'rgba(54, 162, 235, 1)' }, // Rank 2
+                { background: 'rgba(255, 206, 86, 0.6)', border: 'rgba(255, 206, 86, 1)' }  // Rank 3
+            ];
+
+            // Δημιουργία dataset με ετικέτες επιλογών
+            const datasets = [];
+            operators.forEach((operator, operatorIndex) => {
+                const top3 = data[operator] || []; // Οι 3 κορυφαίες διελεύσεις για κάθε εταιρεία
+
+                top3.forEach((entry, rank) => {
+                    if (!datasets[rank]) {
+                        const colors = rankColors[rank] || { background: 'rgba(75, 192, 192, 0.6)', border: 'rgba(75, 192, 192, 1)' };
+                        datasets[rank] = {
+                            label: `Rank ${rank + 1}`,
+                            data: Array(operators.length).fill(0),
+                            backgroundColor: colors.background,
+                            borderColor: colors.border,
+                            borderWidth: 1,
+                            choiceLabels: Array(operators.length).fill('') // Ετικέτες επιλογών για tooltips
+                        };
+                    }
+                    datasets[rank].data[operatorIndex] = entry.crossings;
+                    datasets[rank].choiceLabels[operatorIndex] = operatorNames[entry.source_operator] || entry.source_operator;
+                });
+            });
+
+            const ctx = document.getElementById('top3Chart').getContext('2d');
+
+            if (window.top3ChartInstance) {
+                window.top3ChartInstance.destroy();
+            }
+
+            window.top3ChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    const dataset = tooltipItem.dataset;
+                                    const index = tooltipItem.dataIndex;
+                                    const crossings = dataset.data[index];
+                                    const sourceOperator = dataset.choiceLabels[index];
+                                    return `${dataset.label}: ${crossings} crossings (from ${sourceOperator})`;
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Top 3 Crossings Per Toll Operator'
+                        }
+                    },
+                    responsive: true,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Toll Operators'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Number of Crossings'
+                            },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching statistics data:', error));
+});
+
+</script>
+<script>
+    document.getElementById('loadChart5').addEventListener('click', () => {
+        const year = document.getElementById('yearSelect5').value;
+    
+        fetch(`/api/statistics/average_payment?year=${year}`)
+            .then(response => response.json())
+            .then(data => {
+                const labels = Array.from({ length: 12 }, (_, i) => new Date(0, i).toLocaleString('default', { month: 'long' }));
+                const avgPayments = Object.values(data);
+    
+                const ctx = document.getElementById('averagePaymentChart').getContext('2d');
+    
+                // Αν υπάρχει ήδη instance του Chart, καταστρέψτε το πριν δημιουργηθεί νέο
+                if (window.averagePaymentChartInstance) {
+                    window.averagePaymentChartInstance.destroy();
+                }
+    
+                // Δημιουργία νέου γραφήματος
+                window.averagePaymentChartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: `Average Payment (${year})`,
+                            data: avgPayments,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3 // Ελαφριά καμπύλη στη γραμμή
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: `Average Payment per User per Month (${year})`
+                            }
+                        },
+                        responsive: true,
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Months'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Average Payment (€)'
+                                },
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching statistics data:', error));
+    });
+    </script>
+   
+   <script>
+    document.getElementById('exportDataButton').addEventListener('click', () => {
+        // Στείλτε το αίτημα για την εξαγωγή των δεδομένων
+        fetch('/api/statistics/export_data')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+                return response.blob(); // Λήψη των δεδομένων ως Blob
+            })
+            .then(blob => {
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'data.csv'; // Όνομα του αρχείου
+                link.click(); // Προκαλεί το download
+            })
+            .catch(error => {
+                console.error('Error during data export:', error);
+            });
+    });
+</script>
+{% endblock %}

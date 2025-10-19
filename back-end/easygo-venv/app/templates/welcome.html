@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/styles_welcome.css">
+
+<div class="welcome-container">
+    <!-- Αντικαταστήσαμε το κείμενο με την εικόνα του λογότυπου -->
+    <img src="/static/images/logo.png" alt="EasyGo Logo" class="logo"> <!-- Εδώ είναι η εικόνα του λογότυπου -->
+    
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <ul class="messages">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% if session.username %}
+        <p>Hello, {{ session.username }}!</p>
+        <a class="button" href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+        <a class="button" href="{{ url_for('login') }}">Login</a>
+        <a class="button" href="{{ url_for('register') }}">Register</a>
+    {% endif %}
+</div>
+
+{% endblock %}

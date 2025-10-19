@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/styles_login.css">
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+
+<div class="login-container">
+    <img src="/static/images/logo.png" alt="EasyGo Logo" class="logo"> <!-- Εδώ είναι η εικόνα του λογότυπου -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <ul class="messages">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form method="POST">
+        <div class="form-group">
+            <label for="username"></label>
+            <div class="input-container">
+                <span class="icon"><i class="fa fa-user"></i></span>
+                <input type="text" name="username" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password"></label>
+            <div class="input-container">
+                <span class="icon"><i class="fa fa-key"></i></span>
+                <input type="password" name="password" id="password" required>
+                <span class="toggle-password" onclick="togglePassword()">
+                    <i class="fa fa-eye-slash" id="toggle-icon"></i>
+                </span>
+            </div>
+        </div>
+        <button type="submit" class="button">Login</button>
+    </form>
+    <a href="{{ url_for('welcome') }}">Back to Welcome</a>
+</div>
+
+<script>
+    // JavaScript για το toggle του password
+    function togglePassword() {
+        const passwordField = document.getElementById('password');
+        const toggleIcon = document.getElementById('toggle-icon');
+
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            toggleIcon.classList.remove('fa-eye-slash');
+            toggleIcon.classList.add('fa-eye');
+        } else {
+            passwordField.type = 'password';
+            toggleIcon.classList.remove('fa-eye');
+            toggleIcon.classList.add('fa-eye-slash');
+        }
+    }
+</script>
+{% endblock %}

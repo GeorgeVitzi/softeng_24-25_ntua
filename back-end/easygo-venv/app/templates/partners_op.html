@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/styles_welcome_operator.css">
+
+<!-- Navigation Bar -->
+<div class="navbar">
+    <div class="nav-items">
+        <a  href="{{ url_for('welcome_operator') }}">Welcome</a>
+        <a  href="{{url_for('opbal')}}">Balance</a>
+        <a  href="{{url_for('stat')}}">Statistics</a>
+        <a href="{{ url_for('partners_op') }}">Our Partners</a>
+        <a href="{{ url_for('account_op') }}">My Account</a>
+
+    </div>
+    <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+</div>
+
+<!-- Main Content -->
+<div class="partners-container">
+    <h1>Our Partners</h1>
+    <p>Here you can find information about our partners.</p>
+
+    <!-- Διπλή Στήλη -->
+    <div class="partners-columns">
+        <!-- Στήλη Αριστερά -->
+        <div class="partners-column">
+            <!-- Partner 1 -->
+            <div class="partner">
+                <div class="partner-logo">
+                    <img src="/static/images/neaodos-logo.png" alt="Nea Odos Logo" />
+                </div>
+                <div class="partner-info">
+                    <h3>Νέα Οδός</h3>
+                    <p><a href="https://www.neaodos.gr/" target="_blank">Visit Nea Odos</a></p>
+                </div>
+            </div>
+            <!-- Partner 2 -->
+            <div class="partner">
+                <div class="partner-logo">
+                    <img src="/static/images/aodos-logo.png" alt="Attiki Odos Logo" />
+                </div>
+                <div class="partner-info">
+                    <h3>Αττική Οδός</h3>
+                    <p><a href="https://www.aodos.gr/en/" target="_blank">Visit Attiki Odos</a></p>
+                </div>
+            </div>
+            <!-- Partner 3 -->
+            <div class="partner">
+                <div class="partner-logo">
+                    <img src="/static/images/gefyra-logo.png" alt="Gefyra Logo" />
+                </div>
+                <div class="partner-info">
+                    <h3>Γέφυρα</h3>
+                    <p><a href="https://www.gefyraepass.gr/el/login" target="_blank">Visit Gefyra</a></p>
+                </div>
+            </div>
+            <!-- Partner 4 -->
+            <div class="partner">
+                <div class="partner-logo">
+                    <img src="/static/images/egnatia-logo.png" alt="Egnatia Odos Logo" />
+                </div>
+                <div class="partner-info">
+                    <h3>Εγνατία Οδός</h3>
+                    <p><a href="https://egnatia.eu/" target="_blank">Visit Egnatia Odos</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Στήλη Δεξιά -->
+        <div class="partners-column">
+            <!-- Partner 5 -->
+            <div class="partner">
+                <div class="partner-logo">
+                    <img src="/static/images/kentriki-odos-logo.png" alt="Kentriki Odos Logo" />
+                </div>
+                <div class="partner-info">
+                    <h3>Κεντρική Οδός</h3>
+                    <p><a href="https://www.kentrikiodos.gr/" target="_blank">Visit Kentriki Odos</a></p>
+                </div>
+            </div>
+            <!-- Partner 6 -->
+            <div class="partner">
+                <div class="partner-logo">
+                    <img src="/static/images/moreas-logo.png" alt="Moreas Logo" />
+                </div>
+                <div class="partner-info">
+                    <h3>Μορέας</h3>
+                    <p><a href="https://www.moreas.com.gr/" target="_blank">Visit Moreas</a></p>
+                </div>
+            </div>
+            <!-- Partner 7 -->
+            <div class="partner">
+                <div class="partner-logo">
+                    <img src="/static/images/olympia-odos-logo.png" alt="Olympia Odos Logo" />
+                </div>
+                <div class="partner-info">
+                    <h3>Ολυμπία Οδός</h3>
+                    <p><a href="https://www.olympiaodos.gr/" target="_blank">Visit Olympia Odos</a></p>
+                </div>
+            </div>
+            <!-- Partner 8 -->
+            <div class="partner">
+                <div class="partner-logo">
+                    <img src="/static/images/aegean-logo.png" alt="AegeanMotorway Logo" />
+                </div>
+                <div class="partner-info">
+                    <h3>AegeanMotorway</h3>
+                    <p><a href="https://www.aegeanmotorway.gr/" target="_blank">Visit AegeanMotorway</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer Container -->
+<div class="footer-container">
+    <!-- Left Section -->
+    <div class="footer-left">
+        © 2024 EasyGo
+    </div>
+    
+    <!-- Center Section -->
+    <div class="footer-center">
+        Contact: info@easygo.gr or 2104242424
+    </div>
+    
+    <!-- Right Section -->
+    <div class="footer-right">
+        Developed by Softeng 24-2
+    </div>
+</div>
+
+{% endblock %}
